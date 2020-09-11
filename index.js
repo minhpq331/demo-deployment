@@ -3,7 +3,7 @@ const os = require('os')
 const app = express()
 const port = parseInt(process.env.PORT, 10) || 0
 
-const version = '1.0'
+const version = '2.0'
 
 if (!port) {
 	console.log('Missing env PORT!')
