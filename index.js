@@ -1,6 +1,7 @@
 const express = require('express')
 const os = require('os')
 const fs = require('fs')
+const path = require('path')
 const app = express()
 
 const port = parseInt(process.env.PORT, 10) || 0
@@ -32,17 +33,21 @@ app.get('/secret-env', (req, res) => {
 })
 
 app.get('/config-file', (req, res) => {
-  res.send(`Loaded config from file:`)
-  fs.readFile('./config.json', 'utf8', function(err, contents) {
-    res.send(contents);
-  });
+  try {
+  	const content = fs.readFileSync(path.resolve('./config.json'))
+  	res.send(`Loaded config from file: \n` + content)
+  } catch (error) {
+  	res.send(error)
+  }
 })
 
 app.get('/secret-file', (req, res) => {
-  res.send(`Loaded secret from file:`)
-  fs.readFile('./secret.json', 'utf8', function(err, contents) {
-    res.send(contents);
-  });
+  try {
+  	const content = fs.readFileSync(path.resolve('./secret.json'))
+  	res.send(`Loaded secret from file: \n` + content)
+  } catch (error) {
+  	res.send(error)
+  }
 })
 
 app.listen(port, () => {
