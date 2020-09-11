@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-configmap
+data:
+  something: "Single value"
+  somethingelse.json: |
+    Multiline
+    Version
+    Config
