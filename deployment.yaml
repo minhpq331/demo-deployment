@@ -5,6 +5,8 @@ metadata:
   labels:
     something: day-la-label-cua-deployment
 spec:
+  minReadySeconds: 5
+  revisionHistoryLimit: 2
   strategy:
     type: rollingUpdate        # Strategy name
     rollingUpdate:
