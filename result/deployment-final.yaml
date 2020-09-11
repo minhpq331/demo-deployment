@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  labels:
+    something: day-la-label-cua-deployment
+spec:
+  minReadySeconds: 5
+  revisionHistoryLimit: 2
+  strategy:
+    type: RollingUpdate        # Strategy name
+    rollingUpdate:
+      maxSurge: 1              # Number of over-scheduled pod
+      maxUnavailable: 0        # Number of unavailable pod
+
+  replicas: 1                  # Number of pods
+  selector:                    #
+    matchLabels:               # This selector MUST MATCH below labels
+      app: deployment-v1          #
+
+  # Pod template
+  template:
+    metadata:
+      name: demo-deployment                
+      labels:
+        app: deployment-v1
+    spec:
+      containers:                       
+        - name: web                     
+          image: minhpq331/demo-deployment:v2.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: MESSAGE
+              value: "hello"
+            - name: CONFIG_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: demo-configmap
+                  key: config_env
+            - name: SECRET_ENV
+              valueFrom:
+                secretKeyRef:
+                  name: demo-secret
+                  key: secret_env
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.json
+              subPath: config_file            
+            - name: secret-volume
+              mountPath: /app/secret.json
+              subPath: secret_file
+      volumes:
+        - name: config-volume
+          configMap:
+            name: demo-configmap        
+        - name: secret-volume
+          secret:
+            secretName: demo-secret
+

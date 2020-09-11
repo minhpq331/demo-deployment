@@ -3,8 +3,8 @@ kind: ConfigMap
 metadata:
   name: demo-configmap
 data:
-  something: "Single value"
-  somethingelse.json: |
+  key1: "Single line value"
+  key2: |
     Multiline
     Version
     Config
