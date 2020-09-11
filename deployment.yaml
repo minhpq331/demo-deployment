@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-deployment
+  labels:
+    something: day-la-label-cua-deployment
+spec:
+  strategy:
+    type: rollingUpdate        # Strategy name
+    rollingUpdate:
+      maxSurge: 1              # Number of over-scheduled pod
+      maxUnavailable: 0        # Number of unavailable pod
+
+  replicas: 1                  # Number of pods
+  selector:                    #
+    matchLabels:               # This selector MUST MATCH below labels
+      app: sidecar-v1          #
+
+  # Pod template
+  template:
+    metadata:
+      name: demo-pod                
+      labels:
+        app: sidecar-v1        # Pod labels
+    spec:
+      containers:                       
+        - name: web                     
+          image: some-image             
+          ports:
+            - containerPort: 8080      
