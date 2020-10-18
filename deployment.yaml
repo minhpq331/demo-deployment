@@ -5,14 +5,6 @@ metadata:
   labels:
     something: day-la-label-cua-deployment
 spec:
-  minReadySeconds: 5
-  revisionHistoryLimit: 2
-  strategy:
-    type: rollingUpdate        # Strategy name
-    rollingUpdate:
-      maxSurge: 1              # Number of over-scheduled pod
-      maxUnavailable: 0        # Number of unavailable pod
-
   replicas: 1                  # Number of pods
   selector:                    #
     matchLabels:               # This selector MUST MATCH below labels
@@ -30,4 +22,7 @@ spec:
           image: some-image      
           imagePullPolicy: Always       
           ports:
-            - containerPort: 8080      
+            - containerPort: 8080
+          env:
+            - name: SOME_ENV
+              value: "hello"   # Lưu ý nháy kép ở đây không lỗi
