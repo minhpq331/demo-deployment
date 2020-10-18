@@ -34,6 +34,9 @@ kubectl -n <ns> describe deployment <dep-name>
 
 # Apply định nghĩa resource
 kubectl -n <ns> apply -f file.yaml
+
+# Forward port về local
+kubectl -n <ns> port-forward pod/<pod-name> <local_port>:<container_port>
 ```
 
 ## Bài thực hành 1: Triển khai NodeJS API
