@@ -17,6 +17,25 @@ Docker image (đã có sẵn và chỉ cần dùng):
 
 - V1.0: `minhpq331/demo-deployment:v1.0`
 
+## Các lệnh kubectl thường dùng
+
+```bash
+# List các pod đang chạy
+kubectl -n <ns> get pod
+
+# List các deployment
+kubectl -n <ns> get deployment
+
+# Log pod đang chạy
+kubectl -n <ns> logs <pod-name>
+
+# Kiểm tra mô tả deployment
+kubectl -n <ns> describe deployment <dep-name>
+
+# Apply định nghĩa resource
+kubectl -n <ns> apply -f file.yaml
+```
+
 ## Bài thực hành 1: Triển khai NodeJS API
 
 Các bước thực hiện:
